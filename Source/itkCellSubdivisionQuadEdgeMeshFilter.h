@@ -54,7 +54,7 @@ public:
   typedef typename InputMeshType::CellsContainerIterator         InputCellsContainerIterator;
   typedef typename InputMeshType::CellsContainerConstIterator    InputCellsContainerConstIterator;
   typedef typename InputMeshType::PointType                      InputPointType;
-  typedef typename InputPointType::CoordRepType                  InputCoordType;
+  typedef typename InputMeshType::CoordRepType                   InputCoordType;
   typedef typename InputMeshType::PointIdentifier                InputPointIdentifier;
   typedef typename InputMeshType::CellIdentifier                 InputCellIdentifier;
   typedef typename InputMeshType::CellType                       InputCellType;
@@ -71,7 +71,7 @@ public:
   typedef typename OutputMeshType::CellsContainerIterator        OutputCellsContainerIterator;
   typedef typename OutputMeshType::CellsContainerConstIterator   OutputCellsContainerConstIterator;
   typedef typename OutputMeshType::PointType                     OutputPointType;
-  typedef typename OutputPointType::CoordRepType                 OutputCoordType;
+  typedef typename OutputMeshType::CoordRepType                  OutputCoordType;
   typedef typename OutputMeshType::PointIdentifier               OutputPointIdentifier;
   typedef typename OutputMeshType::CellIdentifier                OutputCellIdentifier;
   typedef typename OutputMeshType::CellType                      OutputCellType;
