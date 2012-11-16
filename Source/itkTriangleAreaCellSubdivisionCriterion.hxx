@@ -26,9 +26,9 @@ namespace itk
 template< typename TMesh >
 void
 TriangleAreaCellSubdivisionCriterion< TMesh >::
-Compute(MeshType * mesh, CellIdContainer & CellIds)
+Compute(MeshType * mesh, CellIdContainer & cellIds)
 {
-  CellIds.clear();
+  cellIds.clear();
   const CellsContainer * cells = mesh->GetCells();
   if( !cells )
     {
@@ -56,7 +56,7 @@ Compute(MeshType * mesh, CellIdContainer & CellIds)
     CoordRepType area = TriangleHelper<PointType>::ComputeArea( pointArray[0], pointArray[1], pointArray[2] );
     if( area > m_MaximumArea )
       {
-      CellIds.push_back( cter->Index() );
+      cellIds.push_back( cter->Index() );
       }
     }
 }

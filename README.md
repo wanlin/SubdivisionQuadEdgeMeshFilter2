@@ -8,3 +8,4 @@ This version refactored the old SubdivisionQuadEdgeMeshFilter in the way as bell
 2. Unified the interface. The procedure of subdivision of mesh was divided into two parts.
    (1). Adding new points.
    (2). Copy/Adding cells.
+3. Add edge cell based subdivision classess.

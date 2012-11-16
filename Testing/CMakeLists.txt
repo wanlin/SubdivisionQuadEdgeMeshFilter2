@@ -8,11 +8,17 @@ else("${ITK_VERSION_MAJOR}" LESS 4)
   set(USED_LIBS ${ITK_LIBRARIES})
 endif("${ITK_VERSION_MAJOR}" LESS 4)
 
+add_executable(EdgeCellSubdivisionQuadEdgeMeshFilterTest EdgeCellSubdivisionQuadEdgeMeshFilterTest.cxx )
+target_link_libraries(EdgeCellSubdivisionQuadEdgeMeshFilterTest ${USED_LIBS})
+
 add_executable(SubdivisionQuadEdgeMeshFilterTest SubdivisionQuadEdgeMeshFilterTest.cxx )
 target_link_libraries(SubdivisionQuadEdgeMeshFilterTest ${USED_LIBS})
 
-add_executable(CriterionSubdivisionQuadEdgeMeshFilterTest CriterionSubdivisionQuadEdgeMeshFilterTest.cxx )
-target_link_libraries(CriterionSubdivisionQuadEdgeMeshFilterTest ${USED_LIBS})
+add_executable(CriterionCellSubdivisionQuadEdgeMeshFilterTest CriterionCellSubdivisionQuadEdgeMeshFilterTest.cxx )
+target_link_libraries(CriterionCellSubdivisionQuadEdgeMeshFilterTest ${USED_LIBS})
+
+add_executable(CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest.cxx )
+target_link_libraries(CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest ${USED_LIBS})
 
 add_test(LinearTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
   ${PROJECT_TEST_PATH}/SubdivisionQuadEdgeMeshFilterTest
@@ -287,7 +293,7 @@ add_test(AdaptiveSquareThreeTriangleCellSubdivisionQuadEdgeMeshFilterPlaneTest_2
   )
 
 add_test(CriterionButterflyTriangleCellSubdivisionQuadEdgeMeshFilterTest
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/ico.vtk
   ${TEST_OUTPUT}/ico_criterion_butterfly.vtk
   0
@@ -295,7 +301,7 @@ add_test(CriterionButterflyTriangleCellSubdivisionQuadEdgeMeshFilterTest
   )
 
 add_test(CriterionLinearTriangleCellSubdivisionQuadEdgeMeshFilterTest
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/ico.vtk
   ${TEST_OUTPUT}/ico_criterion_linear.vtk
   1
@@ -303,7 +309,7 @@ add_test(CriterionLinearTriangleCellSubdivisionQuadEdgeMeshFilterTest
   )
 
 add_test(CriterionLoopTriangleCellSubdivisionQuadEdgeMeshFilterTest
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/ico.vtk
   ${TEST_OUTPUT}/ico_criterion_loop.vtk
   2
@@ -311,7 +317,7 @@ add_test(CriterionLoopTriangleCellSubdivisionQuadEdgeMeshFilterTest
   )
 
 add_test(CriterionSquareTriangleCellSubdivisionQuadEdgeMeshFilterTest
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/ico.vtk
   ${TEST_OUTPUT}/ico_criterion_square3.vtk
   3
@@ -319,7 +325,7 @@ add_test(CriterionSquareTriangleCellSubdivisionQuadEdgeMeshFilterTest
   )
 
 add_test(CriterionButterflyTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/plane.vtk
   ${TEST_OUTPUT}/plane_criterion_butterfly.vtk
   0
@@ -327,7 +333,7 @@ add_test(CriterionButterflyTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
   )
 
 add_test(CriterionLinearTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/plane.vtk
   ${TEST_OUTPUT}/plane_criterion_linear.vtk
   1
@@ -335,7 +341,7 @@ add_test(CriterionLinearTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
   )
 
 add_test(CriterionLoopTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/plane.vtk
   ${TEST_OUTPUT}/plane_criterion_loop.vtk
   2
@@ -343,9 +349,57 @@ add_test(CriterionLoopTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
   )
 
 add_test(CriterionSquareTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
-  ${PROJECT_TEST_PATH}/CriterionSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/plane.vtk
   ${TEST_OUTPUT}/plane_criterion_square3.vtk
   3
   0.1
+  )
+
+add_test(ButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/EdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_edge_butter.vtk
+  0
+  0.01
+  )
+
+add_test(LinearTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/EdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_edge_linear.vtk
+  1
+  0.01
+  )
+
+add_test(LoopTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/EdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_edge_loop.vtk
+  2
+  0.01
+  )
+
+add_test(CriterionButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_criterion_edge_butterfly.vtk
+  0
+  0.05
+  )
+
+add_test(CriterionLinearTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_criterion_edge_linear.vtk
+  1
+  0.05
+  )
+
+add_test(CriterionLoopTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${PROJECT_TEST_PATH}/CriterionEdgeCellSubdivisionQuadEdgeMeshFilterTest
+  ${TEST_DATA_ROOT}/ico.vtk
+  ${TEST_OUTPUT}/ico_criterion_edge_loop.vtk
+  2
+  0.05
   )

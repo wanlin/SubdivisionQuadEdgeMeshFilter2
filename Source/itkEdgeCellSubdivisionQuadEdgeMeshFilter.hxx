@@ -16,80 +16,56 @@
  *
  *=========================================================================*/
 
-#ifndef __itkCellSubdivisionQuadEdgeMeshFilter_hxx
-#define __itkCellSubdivisionQuadEdgeMeshFilter_hxx
+#ifndef __itkEdgeCellSubdivisionQuadEdgeMeshFilter_hxx
+#define __itkEdgeCellSubdivisionQuadEdgeMeshFilter_hxx
 
-#include "itkCellSubdivisionQuadEdgeMeshFilter.h"
+#include "itkEdgeCellSubdivisionQuadEdgeMeshFilter.h"
 
 namespace itk
 {
 template< typename TInputMesh, typename TOutputMesh >
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
-::CellSubdivisionQuadEdgeMeshFilter()
+EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
+::EdgeCellSubdivisionQuadEdgeMeshFilter()
 {
-//  this->m_EdgesPointIdentifier = EdgePointIdentifierContainer::New();
-  this->m_Uniform = true;
 }
 
-/*
 template< typename TInputMesh, typename TOutputMesh >
 void
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
-::GenerateData()
-{
-  this->m_Uniform = this->m_CellsToBeSubdivided.empty();
-
-  this->GenerateOutputPoints();
-
-  this->GenerateOutputCells();
-
-}
-*/
-template< typename TInputMesh, typename TOutputMesh >
-void
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
+EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::GenerateOutputPoints()
 {
+  //1. Get input and output mesh
+  const InputMeshType * input = this->GetInput();
+  OutputMeshType      * output = this->GetOutput();
+
+  //2. Copy points from input to output
   this->CopyInputMeshToOutputMeshPoints();
 
-  this->m_EdgesPointIdentifier->Initialize();
+  //3. Add new points
+  InputEdgeListConstIterator it  = this->m_EdgesToBeSubdivided.begin();
+  InputEdgeListConstIterator end = this->m_EdgesToBeSubdivided.end();
 
-  this->m_Uniform = this->m_CellsToBeSubdivided.empty();
-
-  const InputCellsContainer * cells = this->GetInput()->GetCells();
-
-  if( this->m_Uniform )
+  while( it != end )
     {
-    for ( InputCellsContainerConstIterator cellIt = cells->Begin(); cellIt != cells->End(); ++cellIt )
-      {
-      this->AddNewPoints( cellIt->Value() );
-      }
-    }
-  else
-    {
-    OutputCellIdentifierListConstIterator it  = this->m_CellsToBeSubdivided.begin();
-    OutputCellIdentifierListConstIterator end = this->m_CellsToBeSubdivided.end();
-    while( it != end )
-      {
-      InputCellType* cell = cells->GetElement( static_cast<InputCellIdentifier>( *it ) );
-      this->AddNewPoints( cell );
-      ++it;
-      }
+    this->AddNewPoints( *it );
+    ++it;
     }
 }
 
 template< typename TInputMesh, typename TOutputMesh >
 void
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
+EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::GenerateOutputCells()
 {
-  InputMeshConstPointer input  = this->GetInput();
-  OutputMeshPointer     output = this->GetOutput();
+  //1. Get input and output mesh
+  const InputMeshType * input = this->GetInput();
+  OutputMeshType      * output = this->GetOutput();
 
-  this->m_CellsToBeSubdivided.clear();
-
+  //2. Get cells container from input mesh
   const InputCellsContainer * cells = input->GetCells();
 
+  //3.copy cell and dividing cell
+ // typename InputCellsContainer::ConstPointer cells = input->GetCells();
   for ( InputCellsContainerConstIterator cellIt = cells->Begin();
         cellIt != cells->End();
         ++cellIt )
@@ -119,13 +95,14 @@ CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
     unsigned int splitEdges[3];
     n = 0;
     InputQEType *edge;
+
     for ( unsigned int ii = 0; ii < 3; ++ii )
       {
       unsigned int jj = ( ii + 1 ) % 3;
 
       edge = input->FindEdge(inputPointIdArray[ii], inputPointIdArray[jj]);
 
-      if ( this->m_EdgesPointIdentifier->IndexExists( edge ) )
+      if ( this->m_EdgesPointIdentifier->IndexExists(edge) )
         {
         newPointIdArray[ii] = this->m_EdgesPointIdentifier->GetElement( edge );
         splitEdges[n] = ii ;
@@ -177,27 +154,17 @@ CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
     else if( n == 3 )
       {
       // this face was not supposed to be subdivided but all neighbors are
-      if( this->m_Uniform )
-        {
-        output->AddFaceTriangle(oldPointIdArray[0], newPointIdArray[0], newPointIdArray[2]);
-        output->AddFaceTriangle(newPointIdArray[0], oldPointIdArray[1], newPointIdArray[1]);
-        output->AddFaceTriangle(newPointIdArray[1], oldPointIdArray[2], newPointIdArray[2]);
-        output->AddFaceTriangle(newPointIdArray[0], newPointIdArray[1], newPointIdArray[2]);
-        }
-      else
-        {
-        this->m_CellsToBeSubdivided.push_back(output->AddFaceTriangle(oldPointIdArray[0], newPointIdArray[0], newPointIdArray[2])->GetLeft());
-        this->m_CellsToBeSubdivided.push_back(output->AddFaceTriangle(newPointIdArray[0], oldPointIdArray[1], newPointIdArray[1])->GetLeft());
-        this->m_CellsToBeSubdivided.push_back(output->AddFaceTriangle(newPointIdArray[1], oldPointIdArray[2], newPointIdArray[2])->GetLeft());
-        this->m_CellsToBeSubdivided.push_back(output->AddFaceTriangle(newPointIdArray[0], newPointIdArray[1], newPointIdArray[2])->GetLeft());
-        }
+      output->AddFaceTriangle(oldPointIdArray[0], newPointIdArray[0], newPointIdArray[2]);
+      output->AddFaceTriangle(newPointIdArray[0], oldPointIdArray[1], newPointIdArray[1]);
+      output->AddFaceTriangle(newPointIdArray[1], oldPointIdArray[2], newPointIdArray[2]);
+      output->AddFaceTriangle(newPointIdArray[0], newPointIdArray[1], newPointIdArray[2]);
       }
     }
 }
 
 template< typename TInputMesh, typename TOutputMesh >
 void
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
+EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::PrintSelf( std::ostream & os, Indent indent ) const
 {
   Superclass::PrintSelf(os, indent);
