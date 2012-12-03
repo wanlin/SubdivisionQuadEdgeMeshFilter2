@@ -30,15 +30,15 @@ LoopTriangleEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
   const InputMeshType * input = this->GetInput();
   OutputMeshType * output = this->GetOutput();
 
-  InputCoordType pointWeight[4] = {0.375, 0.375, 0.125, 0.125};
-  InputPointType pointArray[4];
+//  InputCoordType pointWeight[4] = {0.375, 0.375, 0.125, 0.125};
+//  InputPointType pointArray[4];
 
-  pointArray[2].SetToMidPoint(pointArray[0], pointArray[1]);
-  InputPointType newPoint;
-  newPoint.Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
+//  pointArray[2].SetToMidPoint(pointArray[0], pointArray[1]);
+//  InputPointType newPoint;
+//  newPoint.Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
 
-  input->GetPoint( edge->GetOrigin(), &pointArray[0] );
-  input->GetPoint( edge->GetDestination(), &pointArray[1] );
+//  input->GetPoint( edge->GetOrigin(), &pointArray[0] );
+//  input->GetPoint( edge->GetDestination(), &pointArray[1] );
 
   if ( edge->IsInternal() )
     {

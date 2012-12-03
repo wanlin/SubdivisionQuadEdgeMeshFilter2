@@ -46,6 +46,10 @@ public:
   typedef typename Superclass::InputPointsContainerPointer          InputPointsContainerPointer;
   typedef typename Superclass::InputPointsContainerIterator         InputPointsContainerIterator;
   typedef typename Superclass::InputPointsContainerConstIterator    InputPointsContainerConstIterator;
+  typedef typename Superclass::InputCellsContainer                  InputCellsContainer;
+  typedef typename Superclass::InputCellsContainerPointer           InputCellsContainerPointer;
+  typedef typename Superclass::InputCellsContainerIterator          InputCellsContainerIterator;
+  typedef typename Superclass::InputCellsContainerConstIterator     InputCellsContainerConstIterator;
   typedef typename Superclass::InputPointType                       InputPointType;
   typedef typename Superclass::InputVectorType                      InputVectorType;
   typedef typename Superclass::InputCoordType                       InputCoordType;
@@ -69,6 +73,7 @@ public:
   typedef typename Superclass::OutputQEType                         OutputQEType;
   typedef typename Superclass::OutputMeshTraits                     OutputMeshTraits;
   typedef typename Superclass::OutputPointIdIterator                OutputPointIdIterator;
+  typedef typename Superclass::OutputCellIdentifierListConstIterator     OutputCellIdentifierListConstIterator;
 
   typedef typename Superclass::EdgePointIdentifierContainer              EdgePointIdentifierContainer;
   typedef typename Superclass::EdgePointIdentifierContainerPointer       EdgePointIdentifierContainerPointer;
