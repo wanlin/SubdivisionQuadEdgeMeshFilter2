@@ -9,8 +9,10 @@ project(SubdivisionQuadEdgeMeshFilter)
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-FIND_PACKAGE(VTK)
-INCLUDE(${USE_VTK_FILE})
+if(ITKVtkGlue_LOADED)
+  find_package(VTK REQUIRED)
+  include(${VTK_USE_FILE})
+endif()
 
 include(${PROJECT_SOURCE_DIR}/Utilities/KWStyle/KWStyle.cmake)
 include_directories(BEFORE ${ITK_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/Source)

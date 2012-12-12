@@ -31,8 +31,8 @@
 #else
 #include "itkSmoothingQuadEdgeMeshFilter.h"
 #endif
-#include "itkVTKPolyDataReader.h"
-#include "itkVTKPolyDataWriter.h"
+#include "itkMeshFileReader.h"
+#include "itkMeshFileWriter.h"
 
 int main(int argc, char *argv[])
 {
@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
   typedef itk::ConditionalEdgeCellSubdivisionQuadEdgeMeshFilter< InputMeshType, LinearSubdivisionFilterType, CriterionType > ConditionalLinearSubdivisionFilterType;
   typedef itk::ConditionalEdgeCellSubdivisionQuadEdgeMeshFilter< InputMeshType, LoopSubdivisionFilterType, CriterionType > ConditionalLoopSubdivisionFilterType;
 
-  typedef itk::VTKPolyDataReader< InputMeshType >  ReaderType;
-  typedef itk::VTKPolyDataWriter< OutputMeshType > WriterType;
+  typedef itk::MeshFileReader< InputMeshType >  ReaderType;
+  typedef itk::MeshFileWriter< OutputMeshType > WriterType;
 
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName(argv[1]);
