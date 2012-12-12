@@ -359,7 +359,7 @@ add_test(CriterionSquareTriangleCellSubdivisionQuadEdgeMeshFilterTest_1
 add_test(ButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilterTest
   ${PROJECT_TEST_PATH}/EdgeCellSubdivisionQuadEdgeMeshFilterTest
   ${TEST_DATA_ROOT}/ico.vtk
-  ${TEST_OUTPUT}/ico_edge_butter.vtk
+  ${TEST_OUTPUT}/ico_edge_butterfly.vtk
   0
   0.01
   )
