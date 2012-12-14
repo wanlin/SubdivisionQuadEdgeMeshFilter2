@@ -30,7 +30,7 @@ namespace itk
  * \class SubdivisionQuadEdgeMeshFilter
  *
  * \brief FIXME
- * \ingroup ITK-QuadEdgeMeshFiltering
+ * \ingroup ITKQuadEdgeMeshFiltering
  */
 template< typename TInputMesh, typename TOutputMesh >
 class SubdivisionQuadEdgeMeshFilter:

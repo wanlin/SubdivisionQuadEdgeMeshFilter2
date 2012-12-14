@@ -34,14 +34,10 @@ void
 EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::GenerateOutputPoints()
 {
-  //1. Get input and output mesh
-  const InputMeshType * input = this->GetInput();
-  OutputMeshType      * output = this->GetOutput();
-
-  //2. Copy points from input to output
+  //1. Copy points from input to output
   this->CopyInputMeshToOutputMeshPoints();
 
-  //3. Add new points
+  //2. Add new points
   InputEdgeListConstIterator it  = this->m_EdgesToBeSubdivided.begin();
   InputEdgeListConstIterator end = this->m_EdgesToBeSubdivided.end();
 
