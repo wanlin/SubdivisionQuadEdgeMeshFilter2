@@ -85,7 +85,7 @@ public:
   itkGetConstReferenceMacro(CellsToBeSubdivided, OutputCellIdentifierListType);
   void SetCellsToBeSubdivided(const OutputCellIdentifierListType & cellIdList)
     {
-    m_CellsToBeSubdivided = cellIdList;
+    this->m_CellsToBeSubdivided = cellIdList;
     this->Modified();
     }
 

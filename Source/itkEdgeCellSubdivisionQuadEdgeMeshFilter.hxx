@@ -101,7 +101,7 @@ EdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
       if ( this->m_EdgesPointIdentifier->IndexExists(edge) )
         {
         newPointIdArray[ii] = this->m_EdgesPointIdentifier->GetElement( edge );
-        splitEdges[n] = ii ;
+        splitEdges[n] = ii;
         ++n;
         }
       }
