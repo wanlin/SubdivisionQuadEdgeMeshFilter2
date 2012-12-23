@@ -36,16 +36,31 @@ ConditionalEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TEdgeCellSubdivisi
 ::GenerateData()
 {
   this->CopyInputMeshToOutputMeshGeometry();
-  this->m_SubdivisionCriterion->Compute(this->GetOutput(), this->m_EdgesToBeSubdivided);
-  while(!this->m_EdgesToBeSubdivided.empty())
+  this->m_SubdivisionCriterion->Compute( this->GetOutput(), this->m_EdgesToBeSubdivided );
+  while( !this->m_EdgesToBeSubdivided.empty() )
     {
     this->m_EdgeCellSubdivisionFilter->SetInput( this->GetOutput() );
     this->m_EdgeCellSubdivisionFilter->SetEdgesToBeSubdivided( this->m_EdgesToBeSubdivided );
     this->m_EdgeCellSubdivisionFilter->Update();
+    //way 1. graph the output from this->m_EdgeCellSubdivisionFilter
     OutputMeshPointer mesh = this->m_EdgeCellSubdivisionFilter->GetOutput();
     mesh->DisconnectPipeline();
-    this->GetOutput()->Graft(mesh);
-    this->m_SubdivisionCriterion->Compute(this->GetOutput(), this->m_EdgesToBeSubdivided);
+    //way 2. copy the output from this->m_EdgeCellSubdivisionFilter
+    /*
+    OutputMeshPointer mesh = OutputMeshType::New();
+    CopyMeshToMeshPoints( this->m_EdgeCellSubdivisionFilter->GetOutput(), mesh.GetPointer() );
+    CopyMeshToMeshEdgeCells( this->m_EdgeCellSubdivisionFilter->GetOutput(), mesh.GetPointer() );
+    //Here we must inove CopyMeshToMeshEdgeCells before invoke CopyMeshTOMeshCells()
+    //because that the latter call out->AddFaceWithSecurePointList(points, false);
+    //with the false, it will not create a new edge.
+    CopyMeshToMeshCells( this->m_EdgeCellSubdivisionFilter->GetOutput(), mesh.GetPointer() );
+    //SetOutput() was replaced by GraftOutput()
+//    this->SetOutput(mesh);
+//    this->GetOutput()->Graft(mesh);
+    */
+
+    this->GraftOutput(mesh);
+    this->m_SubdivisionCriterion->Compute( this->GetOutput(), this->m_EdgesToBeSubdivided );
     }
 }
 
@@ -54,7 +69,7 @@ void
 ConditionalEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TEdgeCellSubdivisionFilter, TCriterion >
 ::PrintSelf( std::ostream & os, Indent indent ) const
 {
-  Superclass::PrintSelf(os, indent);
+  Superclass::PrintSelf( os, indent );
 }
 }
 #endif

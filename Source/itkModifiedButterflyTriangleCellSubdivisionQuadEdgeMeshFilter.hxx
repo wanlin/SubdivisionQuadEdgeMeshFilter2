@@ -80,6 +80,7 @@ ModifiedButterflyTriangleCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputM
       else
         {
         pointArray[2].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+        pointArray[4].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
         }
 
       if ( edge->GetRprev() )
@@ -97,6 +98,7 @@ ModifiedButterflyTriangleCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputM
       else
         {
         pointArray[3].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+        pointArray[5].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
         }
 
       if ( edge->GetLprev() && edge->GetLprev()->GetRprev() )

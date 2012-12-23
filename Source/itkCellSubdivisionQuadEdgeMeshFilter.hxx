@@ -27,24 +27,9 @@ template< typename TInputMesh, typename TOutputMesh >
 CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::CellSubdivisionQuadEdgeMeshFilter()
 {
-//  this->m_EdgesPointIdentifier = EdgePointIdentifierContainer::New();
   this->m_Uniform = true;
 }
 
-/*
-template< typename TInputMesh, typename TOutputMesh >
-void
-CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
-::GenerateData()
-{
-  this->m_Uniform = this->m_CellsToBeSubdivided.empty();
-
-  this->GenerateOutputPoints();
-
-  this->GenerateOutputCells();
-
-}
-*/
 template< typename TInputMesh, typename TOutputMesh >
 void
 CellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >

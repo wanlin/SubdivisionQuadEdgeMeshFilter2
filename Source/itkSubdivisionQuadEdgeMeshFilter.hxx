@@ -36,6 +36,8 @@ SubdivisionQuadEdgeMeshFilter< TInputMesh, TOutputMesh >
 ::GenerateData()
 {
 
+  this->GetOutput()->Initialize();
+
   this->GenerateOutputPoints();
 
   this->GenerateOutputCells();

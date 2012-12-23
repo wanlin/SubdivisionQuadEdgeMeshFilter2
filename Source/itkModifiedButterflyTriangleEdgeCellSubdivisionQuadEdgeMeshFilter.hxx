@@ -34,44 +34,46 @@ ModifiedButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOut
   InputPointType pointArray[8];
 
   InputPointType newPoint;
-  newPoint.Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+  newPoint.Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
 
-  input->GetPoint(edge->GetOrigin(), &pointArray[0]);
-  input->GetPoint(edge->GetDestination(), &pointArray[1]);
+  input->GetPoint( edge->GetOrigin(), &pointArray[0] );
+  input->GetPoint( edge->GetDestination(), &pointArray[1] );
 
   if ( edge->GetLnext() )
     {
-    input->GetPoint(edge->GetLnext()->GetDestination(), &pointArray[2]);
+    input->GetPoint( edge->GetLnext()->GetDestination(), &pointArray[2] );
 
     if ( edge->GetLnext()->GetRprev() )
       {
-      input->GetPoint(edge->GetLnext()->GetRprev()->GetDestination(), &pointArray[4]);
+      input->GetPoint( edge->GetLnext()->GetRprev()->GetDestination(), &pointArray[4] );
       }
     else
       {
-      pointArray[4].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+      pointArray[4].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
       }
     }
   else
     {
-    pointArray[2].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+    pointArray[2].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
+    pointArray[4].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
     }
 
   if ( edge->GetRprev() )
     {
-    input->GetPoint(edge->GetRprev()->GetDestination(), &pointArray[3]);
+    input->GetPoint( edge->GetRprev()->GetDestination(), &pointArray[3] );
     if ( edge->GetRprev()->GetLnext() )
       {
-      input->GetPoint(edge->GetRprev()->GetLnext()->GetDestination(), &pointArray[5]);
+      input->GetPoint( edge->GetRprev()->GetLnext()->GetDestination(), &pointArray[5] );
       }
     else
       {
-      pointArray[5].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+      pointArray[5].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
       }
     }
   else
     {
-    pointArray[3].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+    pointArray[3].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
+    pointArray[5].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
     }
 
   if ( edge->GetLprev() && edge->GetLprev()->GetRprev() )
@@ -85,11 +87,11 @@ ModifiedButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOut
 
   if ( edge->GetRnext() && edge->GetRnext()->GetLnext() )
     {
-    input->GetPoint(edge->GetRnext()->GetLnext()->GetDestination(), &pointArray[7]);
+    input->GetPoint( edge->GetRnext()->GetLnext()->GetDestination(), &pointArray[7] );
     }
   else
     {
-    pointArray[7].Fill(NumericTraits< typename InputPointType::ValueType >::Zero);
+    pointArray[7].Fill( NumericTraits< typename InputPointType::ValueType >::Zero );
     }
 
   for ( unsigned int kk = 0; kk < 3; ++kk )
@@ -107,7 +109,7 @@ ModifiedButterflyTriangleEdgeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TOut
 
   OutputPointType outPoint;
   outPoint.CastFrom( newPoint );
-  output->SetPoint(numberOfPoints, newPoint);
+  output->SetPoint( numberOfPoints, outPoint );
 
   return;
 }

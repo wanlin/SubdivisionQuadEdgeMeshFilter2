@@ -43,6 +43,7 @@ Compute(MeshType * mesh, EdgeListType & edgeList)
       {
       mesh->GetPoint( edge->PointIdsBegin()[0], &pointArray[0] );
       mesh->GetPoint( edge->PointIdsBegin()[1], &pointArray[1] );
+//      if( mesh->ComputeEdgeLength( edge ) > m_MaximumLength )
       if( pointArray[1].EuclideanDistanceTo(pointArray[0]) > m_MaximumLength )
         {
         edgeList.push_back( mesh->FindEdge( edge->PointIdsBegin()[0], edge->PointIdsBegin()[1]) );
