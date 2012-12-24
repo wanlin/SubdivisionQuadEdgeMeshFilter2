@@ -45,7 +45,7 @@ IterativeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TCellSubdivisionFilter >
     this->m_CellSubdivisionFilter->Update();
     OutputMeshPointer mesh = this->m_CellSubdivisionFilter->GetOutput();
     mesh->DisconnectPipeline();
-    this->GetOutput()->Graft(mesh);
+    this->GraftOutput( mesh );
     --m_ResolutionLevels;
     }
 }
@@ -55,7 +55,7 @@ void
 IterativeCellSubdivisionQuadEdgeMeshFilter< TInputMesh, TCellSubdivisionFilter >
 ::PrintSelf( std::ostream & os, Indent indent ) const
 {
-  Superclass::PrintSelf(os, indent);
+  Superclass::PrintSelf( os, indent );
   std::cout << indent << "Subdivision Resolution Levels: " << m_ResolutionLevels << std::endl;
 }
 }

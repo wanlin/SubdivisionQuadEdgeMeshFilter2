@@ -36,15 +36,15 @@ Compute(MeshType * mesh, EdgeListType & edgeList)
     }
 
   PointType pointArray[2];
-  for(typename MeshType::CellsContainer::ConstIterator eter = edges->Begin(); eter != edges->End(); ++eter)
+  for( typename MeshType::CellsContainer::ConstIterator eter = edges->Begin(); eter != edges->End(); ++eter )
     {
-    typename MeshType::EdgeCellType * edge = dynamic_cast<typename MeshType::EdgeCellType *>(eter.Value());
+    typename MeshType::EdgeCellType * edge = dynamic_cast<typename MeshType::EdgeCellType *>( eter.Value() );
     if( edge )
       {
       mesh->GetPoint( edge->PointIdsBegin()[0], &pointArray[0] );
       mesh->GetPoint( edge->PointIdsBegin()[1], &pointArray[1] );
-//      if( mesh->ComputeEdgeLength( edge ) > m_MaximumLength )
-      if( pointArray[1].EuclideanDistanceTo(pointArray[0]) > m_MaximumLength )
+      if( mesh->ComputeEdgeLength( edge->GetQEGeom() ) > m_MaximumLength )
+//      if( pointArray[1].EuclideanDistanceTo( pointArray[0] ) > m_MaximumLength )
         {
         edgeList.push_back( mesh->FindEdge( edge->PointIdsBegin()[0], edge->PointIdsBegin()[1]) );
         }
